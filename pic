@@ -1,0 +1,40 @@
+import tkinter as tk
+
+# Setup
+root = tk.Tk()
+canvas = tk.Canvas(root, width=400, height=300)
+canvas.pack()
+
+# Create the box
+box = canvas.create_rectangle(10, 10, 60, 60, fill="blue")
+box = canvas.create_rectangle(20, 20, 70, 70, fill="red")
+
+# Speed variables (pixels per update)
+x_speed = 7
+y_speed = 2
+
+def move_box():
+    global x_speed, y_speed
+    
+    # Move the box
+    canvas.move(box, x_speed, y_speed)
+    canvas.move(box, x_speed, y_speed)
+    
+    # Get current coordinates of the box [x1, y1, x2, y2]
+    pos = canvas.coords(box)
+    pos = canvas.coords(box)
+    
+    # Bounce if hitting left or right walls
+    if pos[2] >= 400 or pos[0] <= 0:
+        x_speed = -x_speed
+        
+    # Bounce if hitting top or bottom walls
+    if pos[3] >= 300 or pos[1] <= 0:
+        y_speed = -y_speed
+
+    # Run this function again after 20 milliseconds
+    root.after(20, move_box)
+
+# Start the animation
+move_box()
+root.mainloop()
